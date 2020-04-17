@@ -10,11 +10,10 @@ all: $(DST)
 
 mp4trace: bits.o error.o lock.o misc.o queue.o socket.o thread.o timing.o mp4trace.o
 	@echo L $@ ...
-	@$(CC) $^ -o $@ -lpthread -lgpac_static 
-
+	@$(CC) $^ -o $@ -lpthread -lgpac_static -lm -lz -lpng -ljpeg
 etmp4: bits.o misc.o read.o stat.o writemp4.o etmp4.o
 	@echo L $@ ...
-	@$(CC) $^ -o $@ -lgpac_static -lm
+	@$(CC) $^ -o $@ -pthread -lgpac_static -lm -lz -lpng -ljpeg
 
 psnr: psnr.o
 	@echo L $@ ...
@@ -38,7 +37,7 @@ eg: misc.o random.o read.o eg.o
 
 vsgen: vsgen.o
 	@echo L $@ ...
-	@$(CC) $^ -o $@
+	@$(CC) $^ -o $@ -lm
 
 %.o: %.c
 	@echo C $< ...
